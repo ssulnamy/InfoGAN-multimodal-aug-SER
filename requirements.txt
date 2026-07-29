@@ -1,0 +1,21 @@
+# Core deep-learning stack
+torch>=2.0            # weights_only=True in torch.load requires a recent torch
+torchaudio>=2.0
+transformers>=4.31    # Llama-2 support
+sentencepiece         # Llama tokenizer
+huggingface_hub[cli]  # `huggingface-cli login` for the gated Llama-2 weights
+accelerate>=0.24
+peft>=0.7             # LoRA
+
+# Losses / metrics
+info-nce-pytorch      # provides `info_nce.InfoNCE`
+scikit-learn
+numpy
+
+# Data loading
+pandas
+soundfile             # torchaudio I/O backend for reading the .wav files
+
+# Logging / utilities
+tensorboard
+tqdm

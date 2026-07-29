@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+.ipynb_checkpoints/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Training artifacts
+checkpoints/
+logs/
+cache/
+*.pt
+*.pth
+
+# Personal analysis notebooks and their outputs (not part of the release)
+*.ipynb
+alignment_results.csv
+generation_results.csv
+figures/
+
+# OS / editor
+.DS_Store
+._*
+.idea/
+.vscode/
