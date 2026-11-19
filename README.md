@@ -1,9 +1,8 @@
-# Audio–Text Emotion Recognition with Text-Aligned Audio Augmentation
+# Improving Speech Emotion Recognition with Mutual Information Regularized Generative Model
 
-Speech emotion recognition that transfers knowledge from a text emotion model into
-the audio branch. A text transformer is trained first, then a Wav2Vec2 audio encoder
-is aligned to it, an InfoGAN learns to generate audio features, and finally an
-audio–text fusion classifier is trained with the generated features as augmentation.
+Lack of large, well- annotated emotional speech corpora continues to limit the performance and robustness of speech emotion recognition (SER), particularly as models grow more complex and the demand for multimodal systems increases. While generative data augmentation offers a promising solution, existing approaches often produce emotionally inconsistent samples due to oversimplified conditioning on categorical labels. This paper introduces a novel mutual-information-regularised generative framework that combines cross-modal alignment with feature-level synthesis.
+Building on an InfoGAN-style architecture, our method first learns a semantically aligned audio–text representation space using pre-trained transformers and contrastive objectives.
+A feature generator is then trained to produce emotion-aware audio features while employing mutual information as a quantitative regulariser to ensure strong dependency between generated features and their conditioning variables. We extend this approach to multimodal settings, enabling the generation of novel, paired (audio, text) features. Comprehensive evaluation on three benchmark datasets (IEMOCAP, MSP-IMPROV, MSP-Podcast) demonstrates that our framework consistently outperforms existing augmentation methods, achieving state-of-the-art performance with improvements of up to 2.6\% in unimodal SER and 3.2\% in multimodal emotion recognition. Most importantly, we demonstrate that mutual information functions as both a regulariser and a measurable metric for generative quality, offering a systematic approach to data augmentation in affective computing.
 
 ## Pipeline
 
