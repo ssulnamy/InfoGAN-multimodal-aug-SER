@@ -11,10 +11,10 @@ produced by the previous one.
 
 | Stage | Command | What it does | Output |
 |------:|---------|--------------|--------|
-| 1 | `bert_script.py` | Train the text transformer (emotion from text). | `text.pt` |
-| 2a | `aae_script.py --stage align` | Train the audio transformer, aligning audio to the frozen text encoder (cross-entropy + two InfoNCE alignment losses). | `audio_align.pt` |
-| 2b | `aae_script.py --stage infogan` | Train an InfoGAN that generates audio features before the classification head (D / G / Q steps). | `audio_infogan.pt` |
-| 2c | `aae_script.py --stage fusion` | Data-augment with generated audio/text features and train the audio–text fusion classifier. | `audio_fusion.pt` |
+| 1 | `text_script.py` | Train the text transformer (emotion from text). | `text.pt` |
+| 2a | `audio_script.py --stage align` | Train the audio transformer, aligning audio to the frozen text encoder (cross-entropy + two InfoNCE alignment losses). | `audio_align.pt` |
+| 2b | `audio_script.py --stage infogan` | Train an InfoGAN that generates audio features before the classification head (D / G / Q steps). | `audio_infogan.pt` |
+| 2c | `audio_script.py --stage fusion` | Data-augment with generated audio/text features and train the audio–text fusion classifier. | `audio_fusion.pt` |
 
 Throughout Stage 2 the text encoder from Stage 1 is loaded **frozen**.
 
@@ -22,8 +22,8 @@ Throughout Stage 2 the text encoder from Stage 1 is loaded **frozen**.
 
 ```
 .
-├── bert_script.py        # Stage 1 entry point (text transformer)
-├── aae_script.py         # Stage 2 entry point (--stage align|infogan|fusion)
+├── text_script.py        # Stage 1 entry point (text transformer)
+├── audio_script.py       # Stage 2 entry point (--stage align|infogan|fusion)
 ├── evaluate.py           # Evaluation-only entry point (any stage's checkpoint)
 ├── common.py             # Shared config, dataset dispatch, encoders, loss weights
 ├── measure_WA_UA.py      # WA / UA / UAR metrics
@@ -80,12 +80,12 @@ the flow is wired automatically (each Stage-2 sub-stage reads the previous outpu
 
 ```bash
 # Stage 1 — text transformer
-python bert_script.py --dataset msp-podcast --text-ckpt checkpoints/text.pt
+python text_script.py --dataset msp-podcast --text-ckpt checkpoints/text.pt
 
 # Stage 2 — audio–text model
-python aae_script.py --stage align   --text-ckpt checkpoints/text.pt
-python aae_script.py --stage infogan --text-ckpt checkpoints/text.pt
-python aae_script.py --stage fusion  --text-ckpt checkpoints/text.pt
+python audio_script.py --stage align   --text-ckpt checkpoints/text.pt
+python audio_script.py --stage infogan --text-ckpt checkpoints/text.pt
+python audio_script.py --stage fusion  --text-ckpt checkpoints/text.pt
 ```
 
 Each script prints weighted accuracy (WA), unweighted accuracy (UA) and unweighted
@@ -107,7 +107,7 @@ average recall (UAR) on the test set, and logs training curves to TensorBoard
 | `--audio-backbone` | `audeering/wav2vec2-large-robust-12-ft-emotion-msp-dim` | Pretrained audio weights |
 | `--log-dir` | `logs` | TensorBoard directory |
 
-### Stage 1 (`bert_script.py`)
+### Stage 1 (`text_script.py`)
 
 | Flag | Default | Description |
 |------|---------|-------------|
@@ -115,7 +115,7 @@ average recall (UAR) on the test set, and logs training curves to TensorBoard
 | `--lr` | `1e-5` | Learning rate |
 | `--do-train` / `--do-eval` | both | Restrict to training or evaluation only |
 
-### Stage 2 (`aae_script.py`)
+### Stage 2 (`audio_script.py`)
 
 | Flag | Default | Description |
 |------|---------|-------------|

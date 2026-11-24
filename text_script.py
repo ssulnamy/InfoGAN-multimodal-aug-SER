@@ -1,11 +1,11 @@
 """Stage 1: train the text transformer that predicts emotion from text.
 
 The trained encoder is saved to ``--text-ckpt`` and later loaded (frozen) by the
-audio-text stages in ``aae_script.py``.
+audio-text stages in ``audio_script.py``.
 
 Example
 -------
-    python bert_script.py --dataset msp-podcast --text-ckpt checkpoints/text.pt
+    python text_script.py --dataset msp-podcast --text-ckpt checkpoints/text.pt
 """
 
 import argparse

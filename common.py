@@ -2,10 +2,10 @@
 
 Pipeline overview
 -----------------
-    Stage 1   bert_script.py                    -> text transformer (emotion from text)
-    Stage 2a  aae_script.py --stage align       -> audio transformer aligned to text
-    Stage 2b  aae_script.py --stage infogan     -> InfoGAN audio-feature generator
-    Stage 2c  aae_script.py --stage fusion      -> audio-text fusion classifier
+    Stage 1   text_script.py                    -> text transformer (emotion from text)
+    Stage 2a  audio_script.py --stage align       -> audio transformer aligned to text
+    Stage 2b  audio_script.py --stage infogan     -> InfoGAN audio-feature generator
+    Stage 2c  audio_script.py --stage fusion      -> audio-text fusion classifier
 
 All stages share the same dataset loaders, backbones and loss weighting, which
 live here so the two entry scripts stay small and consistent.

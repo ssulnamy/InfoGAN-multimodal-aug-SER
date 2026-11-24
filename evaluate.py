@@ -6,9 +6,9 @@ per-class recall and the confusion matrix.
 
 The stage selects the matching output head:
 
-    text              text-encoder logits              (bert_script.py output)
-    align / infogan   audio-only logits                (aae_script.py output)
-    fusion            audio-text fused logits          (aae_script.py output;
+    text              text-encoder logits              (text_script.py output)
+    align / infogan   audio-only logits                (audio_script.py output)
+    fusion            audio-text fused logits          (audio_script.py output;
                                                         also needs --text-ckpt)
 
 Examples

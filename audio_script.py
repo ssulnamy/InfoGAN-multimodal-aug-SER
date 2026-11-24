@@ -1,6 +1,6 @@
 """Stage 2: train the audio-text model on top of a frozen text encoder.
 
-The Stage-1 text encoder (``bert_script.py``) is loaded frozen. The audio side is
+The Stage-1 text encoder (``text_script.py``) is loaded frozen. The audio side is
 trained in three sub-stages, selected with ``--stage``:
 
     align    (train1)  align the audio transformer to text (CE + two InfoNCE losses)
@@ -12,9 +12,9 @@ new one, so the intended order is: align -> infogan -> fusion.
 
 Examples
 --------
-    python aae_script.py --stage align   --text-ckpt checkpoints/text.pt
-    python aae_script.py --stage infogan --text-ckpt checkpoints/text.pt
-    python aae_script.py --stage fusion  --text-ckpt checkpoints/text.pt
+    python audio_script.py --stage align   --text-ckpt checkpoints/text.pt
+    python audio_script.py --stage infogan --text-ckpt checkpoints/text.pt
+    python audio_script.py --stage fusion  --text-ckpt checkpoints/text.pt
 """
 
 import argparse
@@ -57,7 +57,7 @@ def parse_args():
     parser.add_argument("--stage", required=True, choices=["align", "infogan", "fusion"])
     parser.add_argument(
         "--text-ckpt", default="checkpoints/text.pt",
-        help="Frozen Stage-1 text encoder (required; run bert_script.py first).")
+        help="Frozen Stage-1 text encoder (required; run text_script.py first).")
     parser.add_argument(
         "--audio-ckpt-in", default=None,
         help="Audio checkpoint to resume from (default: previous stage's output).")
@@ -79,7 +79,7 @@ def parse_args():
 
     if not os.path.exists(args.text_ckpt):
         parser.error(
-            f"--text-ckpt '{args.text_ckpt}' not found; run Stage 1 (bert_script.py) first.")
+            f"--text-ckpt '{args.text_ckpt}' not found; run Stage 1 (text_script.py) first.")
     if args.stage in ("infogan", "fusion") and not (
             args.audio_ckpt_in and os.path.exists(args.audio_ckpt_in)):
         parser.error(
