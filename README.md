@@ -27,6 +27,10 @@ Throughout Stage 2 the text encoder from Stage 1 is loaded **frozen**.
 ├── evaluate.py           # Evaluation-only entry point (any stage's checkpoint)
 ├── common.py             # Shared config, dataset dispatch, encoders, loss weights
 ├── measure_WA_UA.py      # WA / UA / UAR metrics
+├── eval_fusion.sh        # Shortcut: evaluate.py --stage fusion with the default checkpoints
+├── validate_alignment.ipynb    # Analysis notebooks (see below)
+├── plot_results.ipynb
+├── visualize_generation.ipynb
 ├── requirements.txt
 └── src/
     ├── dataloadsplit.py  # IEMOCAP / MSP-IMPROV / MSP-PODCAST loaders
@@ -157,10 +161,9 @@ dataset root, GPU). Figures are written to `figures/` as PDF + PNG.
 
 | Notebook | What it does | Needs GPU |
 |----------|--------------|:---------:|
-| `validate_alignment.ipynb` | Audio–text alignment of a fusion checkpoint: MMD and paired statistics for matched vs shuffled pairs, plus fusion recognition with swapped text. Appends a row to `alignment_results.csv`. | yes |
-| `validate_generation.ipynb` | Real vs InfoGAN-generated audio features (label + matched text vs label + random vector): MMD / cosine tables and PCA / t-SNE plots. Appends a row to `generation_results.csv`. | yes |
-| `visualize_generation.ipynb` | The paper's t-SNE figure: real vs generated audio features on a shared embedding, coloured by emotion class (generated / real / overlay). Does not need the text model by default. | yes |
-| `plot_generation_results.ipynb` | Box plots and a summary table across checkpoints from `generation_results.csv`. | no |
+| `validate_alignment.ipynb` | Audio–text alignment of a fusion checkpoint: MMD and paired statistics for matched vs shuffled pairs, plus fusion recognition with swapped text. Appends one row per checkpoint to `alignment_results.csv`. | yes |
+| `plot_results.ipynb` | Box plots and a summary of `alignment_results.csv` across checkpoints (matched vs shuffled); run `validate_alignment.ipynb` first. | no |
+| `visualize_generation.ipynb` | The paper's t-SNE figure: real vs InfoGAN-generated audio features on a shared embedding, coloured by emotion class (generated / real / overlay). Does not need the text model by default. | yes |
 
 ## Notes
 

@@ -13,6 +13,14 @@ cache/
 *.pt
 *.pth
 
+# Analysis notebooks: only the ones that reproduce the paper are released
+*.ipynb
+!visualize_generation.ipynb
+!plot_results.ipynb
+!validate_alignment.ipynb
+alignment_results.csv
+generation_results.csv
+figures/
 
 # OS / editor
 .DS_Store
