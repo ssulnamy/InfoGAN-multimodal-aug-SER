@@ -149,6 +149,19 @@ It prints WA / UA / UAR plus per-class recall and the confusion matrix.
 Only the `text` and `fusion` stages load the 7B text model; `align` and `infogan`
 evaluate the audio branch alone.
 
+## Analysis notebooks
+
+Companion notebooks for the paper's analyses and figures. Run them from the
+repository root; each starts with an *Arguments* cell to edit (checkpoint paths,
+dataset root, GPU). Figures are written to `figures/` as PDF + PNG.
+
+| Notebook | What it does | Needs GPU |
+|----------|--------------|:---------:|
+| `validate_alignment.ipynb` | Audio–text alignment of a fusion checkpoint: MMD and paired statistics for matched vs shuffled pairs, plus fusion recognition with swapped text. Appends a row to `alignment_results.csv`. | yes |
+| `validate_generation.ipynb` | Real vs InfoGAN-generated audio features (label + matched text vs label + random vector): MMD / cosine tables and PCA / t-SNE plots. Appends a row to `generation_results.csv`. | yes |
+| `visualize_generation.ipynb` | The paper's t-SNE figure: real vs generated audio features on a shared embedding, coloured by emotion class (generated / real / overlay). Does not need the text model by default. | yes |
+| `plot_generation_results.ipynb` | Box plots and a summary table across checkpoints from `generation_results.csv`. | no |
+
 ## Notes
 
 - `--text-backbone` accepts Llama, BERT or RoBERTa checkpoints (e.g.
